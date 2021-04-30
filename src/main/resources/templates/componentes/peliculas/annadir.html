@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="componentes/head :: head"></th:block>
+</head>
+<body>
+<div th:fragment="navigation-menu-peliculas-annadir">
+		<div class="container">
+			Te encuentras en index / peliculas - Añadir <span sec:authentication="name"></span> <span th:text="${#authentication.name}"></span>
+		</div>
+	</div>
+</body>
+</html>

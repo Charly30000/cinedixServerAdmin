@@ -4,12 +4,20 @@
 <th:block th:include="componentes/head :: head"></th:block>
 </head>
 <body>
+
 <header th:replace="componentes/header :: header"></header>
-	<div class="container">
-	Te encuentras en index <span sec:authentication="name"></span> <span th:text="${#authentication.name}"></span>
-	</div>
+
+<div th:replace="componentes/peliculas/navigation-menu :: navigation-menu-peliculas"></div>
+
+<div th:if="${linkSelected == 'cartelera'}">
+	<div th:replace="componentes/peliculas/cartelera :: navigation-menu-peliculas-cartelera"></div>
+</div>
+<div th:if="${linkSelected == 'annadir'}">
+	<div th:replace="componentes/peliculas/annadir :: navigation-menu-peliculas-annadir"></div>
+</div>
 
 	
 <footer th:replace="componentes/footer :: footer"></footer>
+
 </body>
 </html>
