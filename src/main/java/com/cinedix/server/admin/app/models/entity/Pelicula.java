@@ -1,19 +1,47 @@
 package com.cinedix.server.admin.app.models.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "peliculas")
 public class Pelicula implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotEmpty
+	@Column(nullable = false)
 	private String nombre;
 
+	@NotEmpty
+	@Column(nullable = false)
 	private String descripcion;
-
+	
+	//TO DO: cambiar a false y añadir @NotEmpty
+	@Column(nullable = true)
 	private String rutaImagen;
 
-	private String estreno;
+	@NotNull
+	@Column(nullable = false)
+	private boolean estreno;
 
-	private List<Cine> cinesDisponibles;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -39,20 +67,12 @@ public class Pelicula implements Serializable {
 		this.rutaImagen = rutaImagen;
 	}
 
-	public String getEstreno() {
+	public boolean getEstreno() {
 		return estreno;
 	}
 
-	public void setEstreno(String estreno) {
+	public void setEstreno(boolean estreno) {
 		this.estreno = estreno;
-	}
-
-	public List<Cine> getCinesDisponibles() {
-		return cinesDisponibles;
-	}
-
-	public void setCinesDisponibles(List<Cine> cinesDisponibles) {
-		this.cinesDisponibles = cinesDisponibles;
 	}
 
 	/**
