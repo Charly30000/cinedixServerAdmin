@@ -1,32 +1,39 @@
 package com.cinedix.server.admin.app.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cinedix.server.admin.app.models.entity.Pelicula;
 import com.cinedix.server.admin.app.models.service.IPeliculasService;
+import com.cinedix.server.admin.app.models.service.IUploadFileService;
 
 @Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping("/")
 public class PeliculasController {
 
-	protected final Log logger = LogFactory.getLog(this.getClass());
-
 	@Autowired
 	private IPeliculasService peliculaService;
+	
+	@Autowired
+	private IUploadFileService uploadFileService;
 
 	@GetMapping({ "/", "/index", "/peliculas", "/peliculas/cartelera" })
 	public String index(Model model) {
@@ -43,7 +50,38 @@ public class PeliculasController {
 		model.addAttribute("titulo", "index");
 		model.addAttribute("linkSelectedNav", "peliculas");
 		model.addAttribute("linkSelected", "annadir");
+		model.addAttribute("pelicula", new Pelicula());
+		
 		return "index";
+	}
+	
+	@PostMapping({ "/peliculas/annadir" })
+	public String annadirPelicula(@Valid Pelicula pelicula, BindingResult result, Model model, 
+			@RequestParam("file") MultipartFile foto, RedirectAttributes flash) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "index");
+			model.addAttribute("linkSelectedNav", "peliculas");
+			model.addAttribute("linkSelected", "annadir");
+			return "index";
+		}
+		
+		if (!foto.isEmpty()) {
+			
+			String uniqueFilename = null;
+			try {
+				uniqueFilename = uploadFileService.copy(foto);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			pelicula.setRutaImagen(uniqueFilename);
+		}
+		
+		peliculaService.save(pelicula);
+		
+		flash.addFlashAttribute("success", "Pelicula creada correctamente!");
+		
+		return "redirect:/";
 	}
 
 	@GetMapping("/peliculas/editar/{id}")
@@ -67,8 +105,15 @@ public class PeliculasController {
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		
 		if (id > 0) {
+			Pelicula pelicula = peliculaService.findOne(id);
 			peliculaService.delete(id);
-			flash.addFlashAttribute("info", "Pelicula borrada correctamente!");
+			
+			
+			if(uploadFileService.delete(pelicula.getRutaImagen())) {
+				flash.addFlashAttribute("info", "Foto " + pelicula.getRutaImagen() + " eliminada con exito!");
+			}
+			
+			flash.addFlashAttribute("success", "Pelicula borrada correctamente!");
 		} else {
 			flash.addFlashAttribute("error", "La operacion que has intentado realizar esta prohibida");
 			return "redirect:/";
