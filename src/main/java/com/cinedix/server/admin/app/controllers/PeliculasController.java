@@ -64,12 +64,13 @@ public class PeliculasController {
 	}
 
 	@GetMapping("/peliculas/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flask) {
+	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		
 		if (id > 0) {
 			peliculaService.delete(id);
+			flash.addFlashAttribute("info", "Pelicula borrada correctamente!");
 		} else {
-			flask.addFlashAttribute("error", "La operacion que has intentado realizar esta prohibida");
+			flash.addFlashAttribute("error", "La operacion que has intentado realizar esta prohibida");
 			return "redirect:/";
 		}
 		
