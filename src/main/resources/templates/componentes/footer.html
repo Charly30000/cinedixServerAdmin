@@ -4,7 +4,11 @@
 </head>
 <body>
 
-	<footer th:fragment="footer">
+	<footer th:fragment="footer" class="footer mt-auto py-3 bg-light">
+		<div class="container">
+			<span class="text-muted">&copy;Cinedix: Creado por Andrés Manuel Armesto Fernández</span><br>
+			<span class="text-muted">Trabajo de fin de grado Desarrollo de Aplicaciones Multiplataforma</span>
+		</div>
 		<script th:src="@{/js/popper.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
 	</footer>

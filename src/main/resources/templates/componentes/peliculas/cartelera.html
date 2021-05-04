@@ -1,13 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <th:block th:include="componentes/head :: head"></th:block>
 </head>
 <body>
-<div th:fragment="navigation-menu-peliculas-cartelera">
+	<div th:fragment="navigation-menu-peliculas-cartelera">
 		<div class="container">
-			Te encuentras en index / peliculas - Cartelera <span sec:authentication="name"></span> <span th:text="${#authentication.name}"></span>
+			<div th:each="pelicula: ${peliculas}" class="card mb-3">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img th:src="${pelicula.rutaImagen}" th:alt="${pelicula.nombre}">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 th:text="${pelicula.nombre}" th:id="${'tituloPelicula-'} + ${pelicula.id}" class="card-title"></h5>
+							<p th:text="${pelicula.descripcion}" class="card-text"></p>
+							<p class="card-text">
+								<div class="form-check form-switch">
+  									<input th:if="${!pelicula.estreno}" th:id="${'pelicula_'} + ${pelicula.id}" th:onclick="cambiarEstreno(this)" class="form-check-input" type="checkbox">
+  									<input th:unless="${!pelicula.estreno}" th:id="${'pelicula_'} + ${pelicula.id}" th:onclick="cambiarEstreno(this)" class="form-check-input" type="checkbox" checked>
+  									
+  									<label class="form-check-label" th:for="${'pelicula_'} + ${pelicula.id}">Estreno</label>
+								</div>
+							</p>
+							<p>
+								<a th:href="@{/peliculas/eliminar/} + ${pelicula.id}" class="btn btn-outline-danger" th:onclick="aviso(this, event)">Eliminar</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<script th:replace="componentes/peliculas/js/cartelerajs :: cartelerajs"></script>
 	</div>
 </body>
 </html>

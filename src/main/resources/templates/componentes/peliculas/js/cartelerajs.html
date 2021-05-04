@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="componentes/head :: head"></th:block>
+</head>
+<body>
+<script th:fragment="cartelerajs">
+	function cambiarEstreno(self) {
+		
+		let url = "/peliculas/editar/" + self.id.split("_")[1];
+		fetch(url).then(function(respuesta) {
+			return respuesta.json();
+		}).then(function(datos) {
+			let mensaje = datos.mensaje;
+			if (mensaje !== "ok") {
+				alert(mensaje);
+			}
+		}).catch(function(error) {
+			alert("Ha ocurrido un error: " + error);
+		})
+	}
+	
+	function aviso(self, evt) {
+		let idPelicula = self.href.split("/")[5]
+		let pelicula = document.getElementById(`tituloPelicula-${idPelicula}`).innerHTML
+		let confirma = confirm("¿Estas seguro de eliminar la pelicula '" + pelicula + "'?");
+		console.log(confirma);
+		if (!confirma) {
+			evt.preventDefault()
+		}
+	}
+</script>
+</body>
+</html>
