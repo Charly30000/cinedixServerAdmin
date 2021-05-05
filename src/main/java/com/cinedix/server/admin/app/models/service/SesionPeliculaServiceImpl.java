@@ -1,5 +1,6 @@
 package com.cinedix.server.admin.app.models.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class SesionPeliculaServiceImpl implements ISesionPeliculaService {
 	@Override
 	public List<SesionPelicula> obtenerSesionesPeliculasPorPelicula(Long id) {
 		return sesionPeliculaDao.obtenerSesionesPeliculasPorPelicula(id);
+	}
+
+	@Override
+	public SesionPelicula obtenerSesionEntradaPorCinePeliculaFecha(Long cineId, Long peliculaId, Date horaPelicula) {
+		return sesionPeliculaDao.obtenerSesionEntradaPorCinePeliculaFecha(cineId, peliculaId, horaPelicula);
 	}
 
 }

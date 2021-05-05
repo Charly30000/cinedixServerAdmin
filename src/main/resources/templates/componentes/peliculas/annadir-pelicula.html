@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="componentes/head :: head"></th:block>
+</head>
+<body>
+	<div th:fragment="navigation-menu-peliculas-annadir-pelicula">
+		<div class="container mt-3">
+			<!-- Te encuentras en index / peliculas - Añadir <span sec:authentication="name"></span> <span th:text="${#authentication.name}"></span> -->
+			<div class="card border-dark mb-3">
+				<div class="card-header">Añadir pelicula</div>
+				<div class="card-body text-dark">
+					<div class="card-text">
+						<form role="form" th:action="@{/peliculas/annadir}"
+							th:object="${pelicula}" method="POST"
+							enctype="multipart/form-data">
+							<div class="form-group">
+
+								<label for="nombre"> Nombre </label> <input type="text"
+									class="form-control" th:field="*{nombre}"
+									th:errorclass="'form-control alert-danger'" /> <small
+									th:id="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+									class="form-text text-danger"></small>
+							</div>
+							<div class="form-group">
+
+								<label for="descripcion"> Descripcion </label>
+								<textarea class="form-control" th:field="*{descripcion}"
+									th:errorclass="'form-control alert-danger'"></textarea>
+								<small th:id="${#fields.hasErrors('descripcion')}"
+									th:errors="*{descripcion}" class="form-text text-danger"></small>
+							</div>
+							<div class="checkbox">
+
+								<label> <input type="checkbox" th:field="*{estreno}"
+									th:errorclass="'form-control alert-danger'" /> Es un estreno
+								</label> <small th:id="${#fields.hasErrors('estreno')}"
+									th:errors="*{estreno}" class="form-text text-danger"></small>
+							</div>
+							<div class="form-group">
+
+								<label for="file"> Imagen de la pelicula </label> <input
+									type="file" class="form-control-file" id="file" name="file" />
+								<p class="help-block">Debe de subirse una imagen en formato
+									.png</p>
+							</div>
+
+							<button type="submit" class="btn btn-primary">Crear
+								pelicula</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+
+	<div th:fragment="navigation-menu-peliculas-annadir-sesion">
+		<div class="container mt-3">
+			<div class="card border-dark mb-3">
+				<div class="card-header">Añadir sesion</div>
+				<div class="card-body text-dark">
+					<div class="card-text">
+						<form role="form" th:action="@{/peliculas/annadir/sesion}"
+							th:object="${sesionPelicula}" method="POST"
+							enctype="multipart/form-data">
+							<div class="form-group">
+
+								<label for="cine"> Selecciona tu cine: </label> 
+								<select
+									id="cine" th:field="*{cine}" class="form-select"
+									aria-label="Default select example" required>
+									<option value="">--- Selecciona tu cine ---</option>
+									<option th:each="cine: ${listaCines}" th:text="${cine.nombre}"
+										th:value="${cine.id}"></option>
+								</select> <small th:id="${#fields.hasErrors('cine')}" th:errors="*{cine}"
+									class="form-text text-danger"></small>
+							</div>
+
+							<div class="form-group">
+
+								<label for="pelicula"> Selecciona tu pelicula: </label> 
+								<select
+									id="pelicula" th:field="*{pelicula}" class="form-select"
+									aria-label="Default select example" required>
+									<option value="">--- Selecciona tu pelicula ---</option>
+									<option th:each="pelicula: ${listaPeliculas}"
+										th:text="${pelicula.nombre}" th:value="${pelicula.id}"></option>
+								</select> <small th:id="${#fields.hasErrors('pelicula')}"
+									th:errors="*{pelicula}" class="form-text text-danger"></small>
+							</div>
+							
+							<div class="form-group">
+
+								<label for="sitiosTotales"> Numero de asientos disponibles: </label> 
+								<input type="number"
+									class="form-control" th:field="*{sitiosTotales}"
+									th:errorclass="'form-control alert-danger'" required /> 
+								<small
+									th:id="${#fields.hasErrors('sitiosTotales')}" th:errors="*{sitiosTotales}"
+									class="form-text text-danger"></small>
+							</div>
+							
+							<div class="form-group">
+
+								<label for="horaPelicula"> Fecha y hora de la pelicula: <small>Ej: 2021-06-28 17:00</small></label> 
+								<input type="text" placeholder="yyyy-MM-dd HH:mm" pattern="[\d]{4}-{1}[\d]{2}-{1}[\d]{2}\s[\d]{2}:[\d]{2}"
+									class="form-control" th:field="*{horaPelicula}"
+									th:errorclass="'form-control alert-danger'" required /> 
+								<small
+									th:id="${#fields.hasErrors('horaPelicula')}" th:errors="*{horaPelicula}"
+									class="form-text text-danger"></small>
+							</div>
+							
+							<button type="submit" class="btn btn-primary">Crear
+								sesion</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

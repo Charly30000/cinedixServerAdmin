@@ -8,7 +8,10 @@
 	function cambiarEstreno(self) {
 		
 		let url = "/peliculas/editar/" + self.id.split("_")[1];
-		fetch(url).then(function(respuesta) {
+		let params = {
+			method: "GET"
+		}
+		fetch(url, params).then(function(respuesta) {
 			return respuesta.json();
 		}).then(function(datos) {
 			let mensaje = datos.mensaje;
@@ -24,7 +27,6 @@
 		let idPelicula = self.href.split("/")[5]
 		let pelicula = document.getElementById(`tituloPelicula-${idPelicula}`).innerHTML
 		let confirma = confirm("¿Estas seguro de eliminar la pelicula '" + pelicula + "'?");
-		console.log(confirma);
 		if (!confirma) {
 			evt.preventDefault()
 		}

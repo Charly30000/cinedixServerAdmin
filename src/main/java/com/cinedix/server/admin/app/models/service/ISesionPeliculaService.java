@@ -1,5 +1,6 @@
 package com.cinedix.server.admin.app.models.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.cinedix.server.admin.app.models.entity.SesionPelicula;
@@ -15,4 +16,6 @@ public interface ISesionPeliculaService {
 	public void delete (Long id);
 	
 	public List<SesionPelicula> obtenerSesionesPeliculasPorPelicula(Long id);
+	
+	public SesionPelicula obtenerSesionEntradaPorCinePeliculaFecha(Long cineId, Long peliculaId, Date horaPelicula);
 }

@@ -12,9 +12,13 @@
 						</li>
 						<li th:unless="${linkSelected == 'cartelera'}" class="nav-item"><a class="nav-link" th:href="@{/peliculas/cartelera}">Cartelera</a>
 						</li>
-						<li th:if="${linkSelected == 'annadir'}" class="nav-item"><a class="nav-link active" th:href="@{/peliculas/annadir}">Añadir</a>
+						<li th:if="${linkSelected == 'annadir'}" class="nav-item"><a class="nav-link active" th:href="@{/peliculas/annadir}">Añadir pelicula</a>
 						</li>
-						<li th:unless="${linkSelected == 'annadir'}" class="nav-item"><a class="nav-link" th:href="@{/peliculas/annadir}">Añadir</a>
+						<li th:unless="${linkSelected == 'annadir'}" class="nav-item"><a class="nav-link" th:href="@{/peliculas/annadir}">Añadir pelicula</a>
+						</li>
+						<li th:if="${linkSelected == 'annadirSesion'}" class="nav-item"><a class="nav-link active" th:href="@{/peliculas/annadir/sesion}">Añadir sesion</a>
+						</li>
+						<li th:unless="${linkSelected == 'annadirSesion'}" class="nav-item"><a class="nav-link" th:href="@{/peliculas/annadir/sesion}">Añadir sesion</a>
 						</li>
 					</ul>
 				</div>

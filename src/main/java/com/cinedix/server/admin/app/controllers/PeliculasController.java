@@ -50,6 +50,7 @@ public class PeliculasController {
 		model.addAttribute("titulo", "index");
 		model.addAttribute("linkSelectedNav", "peliculas");
 		model.addAttribute("linkSelected", "annadir");
+		
 		model.addAttribute("pelicula", new Pelicula());
 		
 		return "index";
@@ -63,6 +64,7 @@ public class PeliculasController {
 			model.addAttribute("titulo", "index");
 			model.addAttribute("linkSelectedNav", "peliculas");
 			model.addAttribute("linkSelected", "annadir");
+			
 			return "index";
 		}
 		

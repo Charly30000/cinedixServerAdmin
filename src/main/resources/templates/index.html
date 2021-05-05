@@ -13,7 +13,10 @@
 	<div th:replace="componentes/peliculas/cartelera :: navigation-menu-peliculas-cartelera"></div>
 </div>
 <div th:if="${linkSelected == 'annadir'}">
-	<div th:replace="componentes/peliculas/annadir :: navigation-menu-peliculas-annadir"></div>
+	<div th:replace="componentes/peliculas/annadir-pelicula :: navigation-menu-peliculas-annadir-pelicula"></div>
+</div>
+<div th:if="${linkSelected == 'annadirSesion'}">
+	<div th:replace="componentes/peliculas/annadir-sesion :: navigation-menu-peliculas-annadir-sesion"></div>
 </div>
 
 	
