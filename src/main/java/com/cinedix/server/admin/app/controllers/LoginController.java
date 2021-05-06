@@ -28,7 +28,7 @@ public class LoginController {
 			model.addAttribute("success", "Has cerrado sesion con exito!");
 		}
 		
-		model.addAttribute("titulo", "iniciar sesion");
+		model.addAttribute("titulo", "Iniciar sesion");
 		
 		return "login";
 	}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+
+<script th:fragment="usuariosjs" type="text/javascript">
+	
+	function aviso(self, evt) {
+		let idUsuario = self.id.split("_")[1];
+		let usuario = document.getElementById(`usuario_nombre_${idUsuario}`).textContent;
+		let confirma = confirm(`¿Estas seguro de querer eliminar al usuario '${usuario}?'`);
+		if (!confirma) {
+			evt.preventDefault();
+		}
+	}
+	
+</script>
+
+</body>
+</html>

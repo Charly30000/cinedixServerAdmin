@@ -17,9 +17,11 @@
 							enctype="multipart/form-data">
 							<div class="form-group">
 
-								<label for="nombre"> Nombre </label> <input type="text"
+								<label for="nombre"> Nombre </label> 
+								<input type="text"
 									class="form-control" th:field="*{nombre}"
-									th:errorclass="'form-control alert-danger'" /> <small
+									th:errorclass="'form-control alert-danger'" required /> 
+									<small
 									th:id="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
 									class="form-text text-danger"></small>
 							</div>
@@ -27,7 +29,7 @@
 
 								<label for="descripcion"> Descripcion </label>
 								<textarea class="form-control" th:field="*{descripcion}"
-									th:errorclass="'form-control alert-danger'"></textarea>
+									th:errorclass="'form-control alert-danger'" required></textarea>
 								<small th:id="${#fields.hasErrors('descripcion')}"
 									th:errors="*{descripcion}" class="form-text text-danger"></small>
 							</div>
@@ -40,10 +42,11 @@
 							</div>
 							<div class="form-group">
 
-								<label for="file"> Imagen de la pelicula </label> <input
-									type="file" class="form-control-file" id="file" name="file" />
+								<label for="file"> Imagen de la pelicula: </label> 
+								<input
+									type="file" class="form-control-file" id="file" name="file" required/>
 								<p class="help-block">Debe de subirse una imagen en formato
-									.png</p>
+									<b>.png</b> con un tamaño maximo de <b>10 MB</b></p>
 							</div>
 
 							<button type="submit" class="btn btn-primary">Crear

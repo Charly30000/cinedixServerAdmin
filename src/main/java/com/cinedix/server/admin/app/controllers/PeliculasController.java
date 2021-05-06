@@ -37,7 +37,7 @@ public class PeliculasController {
 
 	@GetMapping({ "/", "/index", "/peliculas", "/peliculas/cartelera" })
 	public String index(Model model) {
-		model.addAttribute("titulo", "index");
+		model.addAttribute("titulo", "Peliculas - Cartelera");
 		model.addAttribute("linkSelectedNav", "peliculas");
 		model.addAttribute("linkSelected", "cartelera");
 		model.addAttribute("peliculas", peliculaService.findAll());
@@ -47,7 +47,7 @@ public class PeliculasController {
 
 	@GetMapping({ "/peliculas/annadir" })
 	public String annadir(Model model) {
-		model.addAttribute("titulo", "index");
+		model.addAttribute("titulo", "Annadir pelicula");
 		model.addAttribute("linkSelectedNav", "peliculas");
 		model.addAttribute("linkSelected", "annadir");
 		
@@ -60,16 +60,19 @@ public class PeliculasController {
 	public String annadirPelicula(@Valid Pelicula pelicula, BindingResult result, Model model, 
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash) {
 		
-		if (result.hasErrors()) {
-			model.addAttribute("titulo", "index");
+		boolean formatoImagen = foto.getOriginalFilename().endsWith(".png");
+		if (result.hasErrors() || !formatoImagen) {
+			model.addAttribute("titulo", "Annadir pelicula");
 			model.addAttribute("linkSelectedNav", "peliculas");
 			model.addAttribute("linkSelected", "annadir");
+			if (!formatoImagen) {
+				model.addAttribute("error", "Debe de incluirse una imagen en formato .png");
+			}
 			
 			return "index";
 		}
 		
 		if (!foto.isEmpty()) {
-			
 			String uniqueFilename = null;
 			try {
 				uniqueFilename = uploadFileService.copy(foto);
@@ -77,6 +80,8 @@ public class PeliculasController {
 				e.printStackTrace();
 			}
 			pelicula.setRutaImagen(uniqueFilename);
+		} else {
+			pelicula.setRutaImagen("");
 		}
 		
 		peliculaService.save(pelicula);

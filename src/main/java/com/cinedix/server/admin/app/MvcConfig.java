@@ -1,9 +1,5 @@
 package com.cinedix.server.admin.app;
 
-import java.nio.file.Paths;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,8 +11,6 @@ import com.cinedix.server.admin.app.models.service.UploadFileServiceImpl;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer{
-
-	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {

@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <th:block th:include="componentes/head :: head"></th:block>
 </head>
 <body>
-<header th:replace="componentes/header :: header"></header>
+	<header th:replace="componentes/header :: header"></header>
 	<div class="container mt-5">
-	Te encuentras en usuarios <span sec:authentication="name"></span> <span th:text="${#authentication.name}"></span>
+		<div class="row card border-dark mb-3" th:each="usuario: ${usuarios}">
+			<div class="col-md-12 card-body text-dark">
+				<div class="row">
+					<div class="col-md-10">
+						Usuario '<span class="fw-bold" th:text="${usuario.username}"
+							th:id="${'usuario_nombre_' + usuario.id}"></span>', con email '<span
+							class="fw-bold" th:text="${usuario.email}"></span>', posee los
+						roles: <span class="fst-italic text-lowercase"
+							th:each="roles: ${usuario.roles}"
+							th:text="${roles.authority + ', '}"></span>
+						y tiene la cuenta
+						<span th:if="${usuario.enabled}" class="text-decoration-underline">Habilitada</span>
+						<span th:unless="${usuario.enabled}" class="text-decoration-underline">Deshabilitada</span>
+
+					</div>
+					<div class="col-md-2">
+						<a th:href="@{/usuarios/eliminar/} + ${usuario.id}" th:id="${'eliminar_' + usuario.id}" onclick="aviso(this, event)"
+							class="btn btn-outline-danger">Eliminar usuario</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<nav th:replace="paginator :: paginator"></nav>
 	</div>
 
-	
-<footer th:replace="componentes/footer :: footer"></footer>
+
+	<script type="text/javascript" th:replace="js/usuariosjs :: usuariosjs"></script>
+	<footer th:replace="componentes/footer :: footer"></footer>
 </body>
 </html>

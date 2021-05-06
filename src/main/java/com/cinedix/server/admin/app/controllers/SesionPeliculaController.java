@@ -42,7 +42,7 @@ public class SesionPeliculaController {
 	@GetMapping("/annadir/sesion")
 	public String annadir(Model model) {
 		
-		model.addAttribute("titulo", "index");
+		model.addAttribute("titulo", "Annadir sesion");
 		model.addAttribute("linkSelectedNav", "peliculas");
 		model.addAttribute("linkSelected", "annadirSesion");
 		
@@ -65,7 +65,7 @@ public class SesionPeliculaController {
 				sesionPelicula.getPelicula().getId(), sesionPelicula.getHoraPelicula());
 		
 		if (result.hasErrors() || sesionPeliculaBBDD != null) {
-			model.addAttribute("titulo", "index");
+			model.addAttribute("titulo", "Annadir sesion");
 			model.addAttribute("linkSelectedNav", "peliculas");
 			model.addAttribute("linkSelected", "annadirSesion");
 			
