@@ -97,8 +97,14 @@ public class PeliculasController {
 		if (id > 0) {
 
 			Pelicula pelicula = peliculaService.findOne(id);
-			pelicula.setEstreno(!pelicula.getEstreno());
-			peliculaService.save(pelicula);
+			if (pelicula != null) {
+				pelicula.setEstreno(!pelicula.getEstreno());
+				peliculaService.save(pelicula);
+			} else {
+				result.put("mensaje", "La pelicula que intentas editar no existe");
+				return result;
+			}
+			
 
 		} else {
 			result.put("mensaje", "Operacion prohibida");
@@ -113,14 +119,19 @@ public class PeliculasController {
 		
 		if (id > 0) {
 			Pelicula pelicula = peliculaService.findOne(id);
-			peliculaService.delete(id);
-			
-			
-			if(uploadFileService.delete(pelicula.getRutaImagen())) {
-				flash.addFlashAttribute("info", "Foto " + pelicula.getRutaImagen() + " eliminada con exito!");
+			if (pelicula != null) {
+				peliculaService.delete(id);
+				
+				if(uploadFileService.delete(pelicula.getRutaImagen())) {
+					flash.addFlashAttribute("info", "Foto " + pelicula.getRutaImagen() + " eliminada con exito!");
+				}
+				
+				flash.addFlashAttribute("success", "Pelicula borrada correctamente!");
+			} else {
+				flash.addFlashAttribute("error", "La pelicula que intentas eliminar no existe");
+				return "redirect:/";
 			}
 			
-			flash.addFlashAttribute("success", "Pelicula borrada correctamente!");
 		} else {
 			flash.addFlashAttribute("error", "La operacion que has intentado realizar esta prohibida");
 			return "redirect:/";
