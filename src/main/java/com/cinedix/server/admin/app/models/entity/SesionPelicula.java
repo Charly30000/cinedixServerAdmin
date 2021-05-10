@@ -2,6 +2,7 @@ package com.cinedix.server.admin.app.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,6 +47,9 @@ public class SesionPelicula implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotNull
 	private Pelicula pelicula;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sesionPelicula")
+	public List<SitioOcupado> sitiosOcupados;
 
 	public Long getId() {
 		return id;
@@ -92,6 +97,14 @@ public class SesionPelicula implements Serializable {
 
 	public void setSitiosTotales(Integer sitiosTotales) {
 		this.sitiosTotales = sitiosTotales;
+	}
+
+	public List<SitioOcupado> getSitiosOcupados() {
+		return sitiosOcupados;
+	}
+
+	public void setSitiosOcupados(List<SitioOcupado> sitiosOcupados) {
+		this.sitiosOcupados = sitiosOcupados;
 	}
 
 	/**

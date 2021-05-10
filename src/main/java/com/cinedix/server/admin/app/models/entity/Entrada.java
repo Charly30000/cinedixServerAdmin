@@ -33,7 +33,7 @@ public class Entrada implements Serializable {
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date fecha;
+	private Date fechaCreacion;
 
 	@NotEmpty
 	@Column(nullable = false, unique = true)
@@ -57,12 +57,12 @@ public class Entrada implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFecha() {
-		return fecha;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaCreacion(Date fecha) {
+		this.fechaCreacion = fecha;
 	}
 
 	public String getCodigo() {
