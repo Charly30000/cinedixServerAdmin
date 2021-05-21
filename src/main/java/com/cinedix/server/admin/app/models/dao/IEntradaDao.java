@@ -12,6 +12,10 @@ public interface IEntradaDao extends CrudRepository<Entrada, Long>{
 	@Query("SELECT e FROM Entrada e WHERE e.usuario.id = ?1")
 	public List<Entrada> buscarPorUsuario(Long id);
 	
+	public Entrada findByCodigo(String codigo);
+	
+	public Entrada findByCodigoAndUsuarioUsername(String codigo, String username);
+	
 	//@Query("SELECT e FROM Entrada e WHERE e.sitiosOcupados.sesionPelicula.pelicula.id = ?1")
 	//public List<Entrada> obtenerEntradasPorPelicula(Long id);
 }

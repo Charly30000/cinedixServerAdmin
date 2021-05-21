@@ -15,4 +15,8 @@ public interface IEntradaService {
 	public void delete (Long id);
 	
 	public List<Entrada> buscarPorUsuario(Long id);
+	
+	public Entrada findByCodigo(String codigo);
+	
+	public Entrada findByCodigoAndUsuarioUsername(String codigo, String username);
 }

@@ -45,4 +45,14 @@ public class EntradaServiceImpl implements IEntradaService {
 		return entradaDao.buscarPorUsuario(id);
 	}
 
+	@Override
+	public Entrada findByCodigoAndUsuarioUsername(String codigo, String username) {
+		return entradaDao.findByCodigoAndUsuarioUsername(codigo, username);
+	}
+
+	@Override
+	public Entrada findByCodigo(String codigo) {
+		return entradaDao.findByCodigo(codigo);
+	}
+
 }

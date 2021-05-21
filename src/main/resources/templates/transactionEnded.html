@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="componentes/head :: head"></th:block>
+</head>
+<body>
+<header th:replace="componentes/header :: header"></header>
+	<div class="container">
+		<h1>Muchas gracias por tu compra <span sec:authentication="name"></span>!</h1>
+		<p>Ya puedes volver a la aplicacion</p>
+	</div>
+
+	
+<footer th:replace="componentes/footer :: footer"></footer>
+</body>
+</html>
