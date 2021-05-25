@@ -1,4 +1,4 @@
-package com.cinedix.server.admin.web.app;
+package com.cinedix.server.admin.app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
