@@ -29,7 +29,6 @@ public class PeliculasServiceImpl implements IPeliculasService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Pelicula> findAll() {
-		// TODO Auto-generated method stub
 		return (List<Pelicula>) peliculasDao.findAll();
 	}
 
@@ -43,7 +42,6 @@ public class PeliculasServiceImpl implements IPeliculasService {
 	@Override
 	@Transactional(readOnly = true)
 	public Pelicula findOne(Long id) {
-		// TODO Auto-generated method stub
 		return peliculasDao.findById(id).orElse(null);
 	}
 
@@ -53,12 +51,9 @@ public class PeliculasServiceImpl implements IPeliculasService {
 		List<SesionPelicula> sesionesPeliculas = sesionPeliculaService.obtenerSesionesPeliculasPorPelicula(id);
 		for (SesionPelicula sp : sesionesPeliculas) {
 			Long idSesiones = sp.getId();
-
 			List<SitioOcupado> sitiosOcupados = sitioOcupadoService.obtenerSitiosOcupadosPorSesionPeliculas(idSesiones);
 			for (SitioOcupado so : sitiosOcupados) {
-				Long idSitioOcupado = so.getId();
 				Long idEntrada = so.getEntrada().getId();
-				sitioOcupadoService.delete(idSitioOcupado);
 				entradaService.delete(idEntrada);
 			}
 			sesionPeliculaService.delete(idSesiones);
